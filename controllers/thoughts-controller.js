@@ -20,7 +20,7 @@ const thoughtsController = {
         }
         res.json(dbThoughtsData);
       })
-      .catch((err) => res.json(err));
+      .catch(err => res.json(err));
   },
 
   getAllThoughts(req, res) {
@@ -40,12 +40,14 @@ const thoughtsController = {
     .select('__v')
     .then(dbThoughtsData => {
         if(!dbThoughtsData){
-            res.status(404).josn({message: 'Unable to locate a thought this the id supplied. Please check the ID and try again.'})
+            res.status(404).json({message: 'Unable to locate a thought this the id supplied. Please check the ID and try again.'})
             return;
         }
         res.json(dbThoughtsData);
     })
-    .catch(err => {res.sendStatus(400)})
+    .catch(err => {
+      console.log(err)
+      res.sendStatus(400)})
   }, 
 
   updateThoughts({params, body}, res) {
