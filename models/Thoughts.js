@@ -1,8 +1,9 @@
-// Require Mongoos and Moment
-const { Schema, model, Types } = require('mongoose');
-const moment = require('moment');
 
-// ReactionsSchema
+const { Schema, model, Types } = require('mongoose');
+
+const dateFormat = require("../utils/dateFormat");
+
+
 const ReactionsSchema = new Schema(
     {
     // Set custom ID 
@@ -22,7 +23,7 @@ const ReactionsSchema = new Schema(
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
+        get: (createdAtVal) => dateFormat(createdAtVal),
     }
     },
     {
@@ -44,8 +45,8 @@ const ThoughtsSchema = new Schema(
     createdAt: {
         type: Date,
         default: Date.now,
-        // Moment
-        get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
+       
+        get: (createdAtVal) => dateFormat(createdAtVal),
     },
     username: {
         type: String,
