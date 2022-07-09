@@ -1,9 +1,11 @@
-const { Schema, model, Types } = require("mongoose");
-const dateFormat = require("../utils/dateFormat");
+// Require Mongoos and Moment
+const { Schema, model, Types } = require('mongoose');
+const moment = require('moment');
 
-const ReactionSchema = new Schema(
+// ReactionsSchema
+const ReactionsSchema = new Schema(
     {
-   
+    // Set custom ID 
     reactionId: {
         type: Schema.Types.ObjectId,
         default: ()=> new Types.ObjectId()
@@ -20,7 +22,7 @@ const ReactionSchema = new Schema(
     createdAt: {
         type: Date,
         default: Date.now,
-        get: (createdAtVal) => dateFormat(createdAtVal)
+        get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
     }
     },
     {
@@ -30,41 +32,46 @@ const ReactionSchema = new Schema(
     }
 );
 
+// ThoughtsSchema
 const ThoughtsSchema = new Schema(
-  {
+    {
     thoughtText: {
-      type: String,
-      required: true,
-      minLength: 1,
-      maxLength: 280,
+        type: String,
+        required: true,
+        minlength: 1,
+        maxlength: 280
     },
-
     createdAt: {
-      type: Date,
-      default: Date.now,
-      get: (createdAtVal) => dateFormat(createdAtVal),
+        type: Date,
+        default: Date.now,
+        // Moment
+        get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
     },
-
     username: {
-      type: String,
-      required: true,
+        type: String,
+        required: true
     },
-
-    reactions: [ReactionSchema],
-  },
-  {
+    // Use ReactionsSchema to validate data
+    reactions: [ReactionsSchema]
+    },
+    {
     toJSON: {
-      virtuals: true,
-      getters: true,
+        virtuals: true,
+        getters: true
     },
-    id: false,
-  }
-);
+    id: false
+    }
+)
 
-ThoughtsSchema.virtual("reactionCount").get(function () {
-  return this.reactions.length;
+// get total count of reactions
+ThoughtsSchema.virtual('reactionCount').get(function() {
+    return this.reactions.length;
 });
 
-const Thoughts = model("Thoughts", ThoughtsSchema);
+// create the Thoughts model using the Thoughts Schema
+const Thoughts = model('Thoughts', ThoughtsSchema);
 
+// Export Thoughts Module
 module.exports = Thoughts;
+
+
