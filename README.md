@@ -28,4 +28,4 @@ langnerc@icloud.com
 
 ## Links
 GH: https://github.com/rehpotsirhc21/NoSQL-social
-YouTube: TBD
+YouTube: https://www.youtube.com/watch?v=6cn4FKJGsZo
