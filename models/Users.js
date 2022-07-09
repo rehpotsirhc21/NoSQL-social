@@ -1,7 +1,7 @@
 const { Schema, model, Types } = require("mongoose");
 const isEmail = require("validator");
 
-const UserSchema = new Schema(
+const UsersSchema = new Schema(
   {
     username: {
       type: String,
@@ -32,6 +32,7 @@ const UserSchema = new Schema(
     toJSON: {
       virtuals: true,
       getters: true,
+      
     },
     id: false,
   }
